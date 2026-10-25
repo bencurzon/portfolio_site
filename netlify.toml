@@ -1,0 +1,8 @@
+# Static site: no build step. Netlify serves the "public" folder as it is.
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/thanks"
+  to = "/thanks/"
+  status = 301
