@@ -6,7 +6,7 @@ Ben Curzon's portfolio website. A plain static site: HTML, CSS and a small amoun
 
 ```
 public/                 everything Netlify serves
-  index.html            the whole page (hero, about, how I work, case studies, experience, contact)
+  index.html            the whole page (hero, case studies, about, how I work, experience, contact)
   thanks/index.html     fallback page if the contact form is sent without JavaScript
   css/site.css          all styles
   js/site.js            accordions, image viewer, music links dialog, contact form

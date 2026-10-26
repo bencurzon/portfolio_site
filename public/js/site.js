@@ -8,6 +8,21 @@
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
 
+  /* ---------- sticky nav: measure its height, add a solid background once scrolled ---------- */
+  var nav = $('#site-nav');
+  if (nav) {
+    var setNavH = function () {
+      document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    };
+    var onScroll = function () {
+      nav.classList.toggle('is-stuck', (window.pageYOffset || document.documentElement.scrollTop) > 4);
+    };
+    setNavH(); onScroll();
+    window.addEventListener('resize', setNavH);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setNavH);
+  }
+
   /* ---------- accordions ---------- */
   $$('.acc-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {

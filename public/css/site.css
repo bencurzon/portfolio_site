@@ -61,3 +61,16 @@ img{max-width:100%;}
 .lb-btn:focus-visible{outline:3px solid #FFFFFF; outline-offset:2px;}
 .lb-nav{display:contents;}
 .cs-panel{display:block;}
+
+/* ---- sticky navigation ---- */
+:root{--nav-h:66px;}
+html{scroll-padding-top:var(--nav-h);}
+.site-nav{position:sticky; top:0; z-index:60; isolation:isolate;}
+.site-nav::before{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,#812A49,#9A1FD6); box-shadow:0 2px 14px rgba(33,31,28,0.28); opacity:0; transition:opacity .2s ease; pointer-events:none;}
+.site-nav.is-stuck::before{opacity:1;}
+/* the hero slides up under the transparent nav so the gradient stays seamless at the top of the page */
+.hero{margin-top:calc(var(--nav-h) * -1); padding-top:var(--nav-h);}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .site-nav::before{transition:none;}
+}
