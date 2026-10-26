@@ -23,16 +23,28 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(setNavH);
   }
 
-  /* ---------- accordions ---------- */
+  /* ---------- accordions: one open at a time ---------- */
+  function setAccordion(btn, open) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.hidden = !open;
+    var head = btn.closest('.cs-head, .cs-ghead');
+    var icon = head && head.querySelector('.cs-icon, .cs-gicon');
+    if (icon) icon.textContent = open ? '\u2212' : '+';
+    return head;
+  }
   $$('.acc-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var panel = document.getElementById(btn.getAttribute('aria-controls'));
       var open = btn.getAttribute('aria-expanded') !== 'true';
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      panel.hidden = !open;
-      var head = btn.closest('.cs-head, .cs-ghead');
-      var icon = head && head.querySelector('.cs-icon, .cs-gicon');
-      if (icon) icon.textContent = open ? '−' : '+';
+      var closedOther = false;
+      if (open) {
+        $$('.acc-btn[aria-expanded="true"]').forEach(function (other) {
+          if (other !== btn) { setAccordion(other, false); closedOther = true; }
+        });
+      }
+      var head = setAccordion(btn, open);
+      /* closing a panel above can push the one just opened out of view: bring its header back under the nav */
+      if (open && closedOther && head) head.scrollIntoView({ block: 'start' });
     });
   });
 
