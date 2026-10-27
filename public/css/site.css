@@ -74,3 +74,5 @@ html{scroll-padding-top:var(--nav-h);}
   html{scroll-behavior:auto;}
   .site-nav::before{transition:none;}
 }
+.exp-dates::before{content:"\00b7"; margin:0 9px 0 8px; font-weight:700;}
+@media (max-width:720px){.exp-title span.exp-dates::before{display:none;}}
